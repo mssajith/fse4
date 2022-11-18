@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.cts</groupId>
+	<artifactId>skillprofile</artifactId>
+	<version>1.0.0</version>
+	<name>skillprofile</name>
+	<packaging>pom</packaging>
+	<description>Skill Profile Parent project</description>
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+	<modules>
+		<module>../cqrs-es/cqrs.core</module>
+		<module>skillprofile.common</module>
+		<module>skillprofile.cmd</module>
+		<module>skillprofile.query</module>
+	</modules>
+</project>
