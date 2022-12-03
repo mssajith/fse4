@@ -1,6 +1,7 @@
 package com.cts.skillprofile.query.api.queries;
 
-import com.techbank.cqrs.core.queries.BaseQuery;
+
+import com.cts.skillprofile.cqrs.core.queries.BaseQuery;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.cts.skillprofile.common.dto.Skill;
-import com.techbank.cqrs.core.events.BaseEvent;
+import com.cts.skillprofile.cqrs.core.events.BaseEvent;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

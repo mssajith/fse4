@@ -8,22 +8,22 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cts.skillprofile.cqrs.core.domain.BaseEntity;
 import com.cts.skillprofile.query.domain.SkillEntity;
 import com.cts.skillprofile.query.domain.SkillProfile;
 import com.cts.skillprofile.query.domain.SkillProfileRepository;
 import com.cts.skillprofile.query.domain.SkillRepository;
-import com.techbank.cqrs.core.domain.BaseEntity;
 
 @Service
 public class SkillProfileQueryHandler implements QueryHandler {
 	@Autowired
-	private SkillProfileRepository accountRepository;
+	private SkillProfileRepository skillProfileRepository;
 	@Autowired
 	private SkillRepository skillRepository;
 
 
 	public List<BaseEntity> handle(FindSkillProfileByNameQuery query) {
-		List<BaseEntity> skillProfile = accountRepository.findByNameStartsWith(query.getName());
+		List<BaseEntity> skillProfile = skillProfileRepository.findByNameStartsWith(query.getName());
 		if (skillProfile.isEmpty()) {
 			return null;
 		}
@@ -47,7 +47,7 @@ public class SkillProfileQueryHandler implements QueryHandler {
 	}
 
 	public List<BaseEntity> handle(FindSkillProfileByAssociateIdQuery query) {
-		List<BaseEntity> skillProfile = accountRepository.findByAssociateId(query.getAssociateId());
+		List<BaseEntity> skillProfile = skillProfileRepository.findByAssociateId(query.getAssociateId());
 		if (skillProfile.isEmpty()) {
 			return null;
 		}
@@ -56,7 +56,7 @@ public class SkillProfileQueryHandler implements QueryHandler {
 
 	@Override
 	public List<BaseEntity> handle(FindAllAccountsQuery query) {
-		Iterable<SkillProfile> bankAccounts = accountRepository.findAll();
+		Iterable<SkillProfile> bankAccounts = skillProfileRepository.findAll();
 		List<BaseEntity> bankAccountsList = new ArrayList<>();
 		bankAccounts.forEach(bankAccountsList::add);
 		return bankAccountsList;
@@ -64,7 +64,7 @@ public class SkillProfileQueryHandler implements QueryHandler {
 
 	@Override
 	public List<BaseEntity> handle(FindAccountByIdQuery query) {
-		Optional<SkillProfile> bankAccount = accountRepository.findById(query.getId());
+		Optional<SkillProfile> bankAccount = skillProfileRepository.findById(query.getId());
 		if (bankAccount.isEmpty()) {
 			return null;
 		}

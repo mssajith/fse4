@@ -3,14 +3,20 @@ server:
 spring:
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: skillProfile
+      uri: mongodb+srv://admin:Password1@cluster0.so5majr.mongodb.net/?retryWrites=true&w=majority
+      database: test
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 18.190.55.232:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+amazon:
+  dynamodb:
+    endpoint: https://dynamodb.us-east-2.amazonaws.com
+  aws:
+    accesskey: AKIA4UMHUX5ED7PLBOY5
+    secretkey: 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
+    region: us-east-2

@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.techbank.cqrs.core.commands.BaseCommand;
-import com.techbank.cqrs.core.commands.CommandHandlerMethod;
-import com.techbank.cqrs.core.infrastructure.CommandDispatcher;
+import com.cts.skillprofile.cqrs.core.commands.BaseCommand;
+import com.cts.skillprofile.cqrs.core.commands.CommandHandlerMethod;
+import com.cts.skillprofile.cqrs.core.infrastructure.CommandDispatcher;
 
 @Service
 public class SkillProfileCommandDispatcher implements CommandDispatcher{

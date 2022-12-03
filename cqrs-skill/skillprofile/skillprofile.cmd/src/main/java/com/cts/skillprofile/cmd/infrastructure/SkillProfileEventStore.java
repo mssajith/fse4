@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.cts.skillprofile.cmd.domain.EventStoreRepository;
 import com.cts.skillprofile.cmd.domain.SkillProfileAggregate;
-import com.techbank.cqrs.core.events.BaseEvent;
-import com.techbank.cqrs.core.events.EventModel;
-import com.techbank.cqrs.core.exceptions.AggregateNotFoundException;
-import com.techbank.cqrs.core.exceptions.ConcurrencyException;
-import com.techbank.cqrs.core.infrastructure.EventStore;
-import com.techbank.cqrs.core.producers.EventProducer;
+import com.cts.skillprofile.cqrs.core.events.BaseEvent;
+import com.cts.skillprofile.cqrs.core.events.EventModel;
+import com.cts.skillprofile.cqrs.core.exceptions.AggregateNotFoundException;
+import com.cts.skillprofile.cqrs.core.exceptions.ConcurrencyException;
+import com.cts.skillprofile.cqrs.core.infrastructure.EventStore;
+import com.cts.skillprofile.cqrs.core.producers.EventProducer;
 
 @Service
 public class SkillProfileEventStore implements EventStore {

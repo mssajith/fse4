@@ -7,10 +7,11 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.techbank.cqrs.core.domain.BaseEntity;
-import com.techbank.cqrs.core.infrastructure.QueryDispatcher;
-import com.techbank.cqrs.core.queries.BaseQuery;
-import com.techbank.cqrs.core.queries.QueryHandlerMethod;
+import com.cts.skillprofile.cqrs.core.domain.BaseEntity;
+import com.cts.skillprofile.cqrs.core.infrastructure.QueryDispatcher;
+import com.cts.skillprofile.cqrs.core.queries.BaseQuery;
+import com.cts.skillprofile.cqrs.core.queries.QueryHandlerMethod;
+
 
 @Service
 public class SkillProfileQueryDispatcher implements QueryDispatcher{

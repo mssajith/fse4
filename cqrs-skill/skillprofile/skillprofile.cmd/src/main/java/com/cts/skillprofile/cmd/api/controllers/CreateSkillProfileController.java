@@ -19,10 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.skillprofile.cmd.api.commands.CreateSkillProfileCommand;
 import com.cts.skillprofile.cmd.api.dto.CreateSkillProfileResponse;
+import com.cts.skillprofile.cmd.api.helper.SkillProfileHelper;
+import com.cts.skillprofile.cmd.exception.InvalidSkillNameException;
 import com.cts.skillprofile.cmd.exception.InvalidSkillRatingException;
 import com.cts.skillprofile.common.dto.BaseResponse;
+import com.cts.skillprofile.common.dto.NonTechSkill;
 import com.cts.skillprofile.common.dto.Skill;
-import com.techbank.cqrs.core.infrastructure.CommandDispatcher;
+import com.cts.skillprofile.common.dto.SkillType;
+import com.cts.skillprofile.common.dto.TechSkill;
+import com.cts.skillprofile.cqrs.core.infrastructure.CommandDispatcher;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -41,21 +46,13 @@ public class CreateSkillProfileController {
 		var id = UUID.randomUUID().toString();
 		command.setId(id);
 		try {
-			// validate the expertise level
 			List<Skill> skillList = command.getSkillList();
-
+			
+			//validate Skill Name
+			SkillProfileHelper.validateSkillName(skillList);
+			
 			// check if any of the skill rating is invalid
-			Skill skill = skillList.stream().filter(skil -> {
-				if (skil.getSkillRating() > 0 && skil.getSkillRating() <= 20) {
-					return false;
-				} else {
-					return true;
-				}
-			}).findFirst().orElse(null);
-
-			if (null != skill) {
-				throw new InvalidSkillRatingException("Invalid Skill Rating " + skill.getSkillRating());
-			}
+			SkillProfileHelper.validateSkillRating(skillList);
 
 			commandDispatcher.send(command);
 			return new ResponseEntity<>(
@@ -76,5 +73,7 @@ public class CreateSkillProfileController {
 		}
 
 	}
+
+
 
 }

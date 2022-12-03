@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 
 import com.cts.skillprofile.common.dto.AccountType;
 import com.cts.skillprofile.common.dto.Skill;
+import com.cts.skillprofile.cqrs.core.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.techbank.cqrs.core.domain.BaseEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,12 +1,14 @@
 package com.cts.skillprofile.cmd.api.commands;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.skillprofile.cmd.domain.SkillProfileAggregate;
-import com.techbank.cqrs.core.handlers.EventSourcingHandler;
+import com.cts.skillprofile.cqrs.core.events.BaseEvent;
+import com.cts.skillprofile.cqrs.core.handlers.EventSourcingHandler;
 
 @Service
 public class SkillProfileCommandHandler implements CommandHandler {
@@ -22,6 +24,7 @@ public class SkillProfileCommandHandler implements CommandHandler {
 	@Override
 	public void handle(UpdateSkillProfileCommand command) {
 		var aggregate = eventSourcingHandler.getById(command.getId());
+		
 		command.setSkillUpdatedDate(new Date());
 		aggregate.depositFunds(command);
 		eventSourcingHandler.save(aggregate);

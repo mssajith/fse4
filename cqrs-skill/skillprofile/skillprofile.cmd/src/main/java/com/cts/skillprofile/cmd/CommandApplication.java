@@ -5,13 +5,15 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.cts.skillprofile.cmd.api.commands.CommandHandler;
 import com.cts.skillprofile.cmd.api.commands.CreateSkillProfileCommand;
 import com.cts.skillprofile.cmd.api.commands.UpdateSkillProfileCommand;
-import com.techbank.cqrs.core.infrastructure.CommandDispatcher;
+import com.cts.skillprofile.cqrs.core.infrastructure.CommandDispatcher;
 
 @SpringBootApplication
+@EnableMongoRepositories
 public class CommandApplication {
 	@Autowired
 	private CommandDispatcher commandDispatcher;
@@ -28,7 +30,5 @@ public class CommandApplication {
 	public void registerHandlers() {
 		commandDispatcher.registerHandler(CreateSkillProfileCommand.class, commandHandler::handle);
 		commandDispatcher.registerHandler(UpdateSkillProfileCommand.class, commandHandler::handle);
-//		commandDispatcher.registerHandler(WithdrawFundsCommand.class, commandHandler::handle);
-//		commandDispatcher.registerHandler(CloseAccountCommand.class, commandHandler::handle);
 	}
 }

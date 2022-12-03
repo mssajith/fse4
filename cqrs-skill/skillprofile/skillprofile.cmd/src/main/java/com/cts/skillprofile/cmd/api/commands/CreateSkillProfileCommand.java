@@ -10,11 +10,12 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.cts.skillprofile.common.dto.Skill;
-import com.techbank.cqrs.core.commands.BaseCommand;
+import com.cts.skillprofile.cqrs.core.commands.BaseCommand;
 
 import lombok.Data;
 
 @Data
+
 public class CreateSkillProfileCommand extends BaseCommand{
 	
     @NotEmpty(message = "Name may not be null")

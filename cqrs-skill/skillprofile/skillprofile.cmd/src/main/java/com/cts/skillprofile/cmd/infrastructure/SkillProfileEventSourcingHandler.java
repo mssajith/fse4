@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.skillprofile.cmd.domain.SkillProfileAggregate;
-import com.techbank.cqrs.core.domain.AggregateRoot;
-import com.techbank.cqrs.core.events.BaseEvent;
-import com.techbank.cqrs.core.handlers.EventSourcingHandler;
-import com.techbank.cqrs.core.infrastructure.EventStore;
+import com.cts.skillprofile.cqrs.core.domain.AggregateRoot;
+import com.cts.skillprofile.cqrs.core.events.BaseEvent;
+import com.cts.skillprofile.cqrs.core.handlers.EventSourcingHandler;
+import com.cts.skillprofile.cqrs.core.infrastructure.EventStore;
 
 @Service
 public class SkillProfileEventSourcingHandler implements EventSourcingHandler<SkillProfileAggregate>{

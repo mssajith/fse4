@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.cts</groupId>
 	<artifactId>skillprofile.query</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>skillprofile.query</name>
 	<description>Skill Profile Command API project</description>
 	<properties>
@@ -43,14 +43,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.techbank</groupId>
+			<groupId>com.cts</groupId>
 			<artifactId>cqrs.core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
-				<dependency>
-			<groupId>com.techbank</groupId>
-			<artifactId>account.common</artifactId>
+
+		<dependency>
+			<groupId>com.cts</groupId>
+			<artifactId>skillprofile.common</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>

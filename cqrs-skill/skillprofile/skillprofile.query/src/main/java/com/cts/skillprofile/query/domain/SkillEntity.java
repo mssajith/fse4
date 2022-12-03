@@ -10,8 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.cts.skillprofile.common.dto.SkillType;
+import com.cts.skillprofile.cqrs.core.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.techbank.cqrs.core.domain.BaseEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

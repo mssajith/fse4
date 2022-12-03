@@ -8,14 +8,17 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-      url: jdbc:mysql://localhost:3307/skillProfile?createDatabaseIfNotExists=true
-      username: root
-      password: techbankRootPsw
+      url: jdbc:mysql://skillprofilecmd.cxwg35x48ays.us-east-2.rds.amazonaws.com:3306/skillprofile?useSSL=false
+      username: admin
+      password: Passw#rd1  
+#      url: jdbc:mysql://localhost:3307/skillProfile?createDatabaseIfNotExists=true
+#      username: root
+#      password: techbankRootPsw
   kafka:
       listener:
         ack-mode: MANUAL_IMMEDIATE
       consumer:
-        bootstrap-servers: localhost:9092
+        bootstrap-servers: 18.190.55.232:9092
         group-id: skillprofileConsumer
         auto-offset-reset: earliest
         key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

@@ -14,23 +14,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.skillprofile.common.domain.SkillProfileServiceResponse;
+import com.cts.skillprofile.common.domain.SkillProfileVO;
+import com.cts.skillprofile.cqrs.core.infrastructure.QueryDispatcher;
 import com.cts.skillprofile.query.api.dto.EqualityType;
-import com.cts.skillprofile.query.api.dto.SkillProfileLookupResponse;
+import com.cts.skillprofile.query.api.mapper.SkillProfileResponseMapper;
 import com.cts.skillprofile.query.api.queries.FindAccountByIdQuery;
 import com.cts.skillprofile.query.api.queries.FindAllAccountsQuery;
 import com.cts.skillprofile.query.api.queries.FindSkillProfileByAssociateIdQuery;
 import com.cts.skillprofile.query.api.queries.FindSkillProfileByNameQuery;
 import com.cts.skillprofile.query.api.queries.FindSkillProfileBySkillNameQuery;
 import com.cts.skillprofile.query.domain.SkillProfile;
-import com.techbank.cqrs.core.infrastructure.QueryDispatcher;
+import com.cts.skillprofile.query.domain.SkillProfileLookupResponse;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/api/v1/admin")
 public class SkillProfileLookupController {
 	private Logger logger = Logger.getLogger(SkillProfileLookupController.class.getName());
 	@Autowired
 	private QueryDispatcher queryDispatcher;
+	@Autowired
+	private SkillProfileResponseMapper skillProfileResponseMapper;
 
 	@GetMapping(path = "/")
 	public ResponseEntity<SkillProfileLookupResponse> getAllAccounts() {
@@ -52,7 +57,7 @@ public class SkillProfileLookupController {
 	}
 
 	@GetMapping(path = "/{criteria}/{criteriaValue}")
-	public ResponseEntity<SkillProfileLookupResponse> getAccounByCriteria(@PathVariable(value = "criteria") String criteria,
+	public ResponseEntity<SkillProfileServiceResponse> getAccounByCriteria(@PathVariable(value = "criteria") String criteria,
 			@PathVariable(value = "criteriaValue") String criteriaValue) {
 		try {
 			List<SkillProfile> skillProfiles = null;
@@ -74,13 +79,16 @@ public class SkillProfileLookupController {
 			if (skillProfiles == null || skillProfiles.size() == 0) {
 				return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 			}
-			SkillProfileLookupResponse response = SkillProfileLookupResponse.builder().skillProfiles(skillProfiles)
+			
+			List<SkillProfileVO> skillProfileVoList = skillProfileResponseMapper.mapServiceResponse(skillProfiles);
+			SkillProfileServiceResponse response = SkillProfileServiceResponse.builder()
+					.skillProfiles(skillProfileVoList)
 					.message("Successfully returned Skill Profiles").build();
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			String safeErrorMsg = "Failed to complete skill profile request with criteria " + criteria;
 			logger.log(Level.SEVERE, safeErrorMsg, e);
-			return new ResponseEntity<SkillProfileLookupResponse>(new SkillProfileLookupResponse(safeErrorMsg),
+			return new ResponseEntity<SkillProfileServiceResponse>(new SkillProfileServiceResponse(safeErrorMsg),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -88,23 +96,25 @@ public class SkillProfileLookupController {
 	
 	/**
 	@GetMapping(path = "/byId/{id}")
-	public ResponseEntity<AccountLookupResponse> getAccounById(@PathVariable(value = "id") String id) {
+	public ResponseEntity<SkillProfileServiceResponse> getAccounById(@PathVariable(value = "id") String id) {
 		try {
-			List<SkillProfile> accounts = queryDispatcher.send(new FindAccountByIdQuery(id));
-			if (accounts == null || accounts.size() == 0) {
+			List<SkillProfile> skillProfiles = queryDispatcher.send(new FindAccountByIdQuery(id));
+			if (skillProfiles == null || skillProfiles.size() == 0) {
 				return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 			}
-			AccountLookupResponse response = AccountLookupResponse.builder().skillProfiles(accounts)
-					.message("Successfully returned bank account").build();
+			SkillProfileServiceResponse response = SkillProfileServiceResponse.builder()
+					.skillProfiles(skillProfileResponseMapper.mapServiceResponse(skillProfiles))
+					.message("Successfully returned Skill Profiles").build();
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			String safeErrorMsg = "Failed to complete get all accounts By ID request";
 			logger.log(Level.SEVERE, safeErrorMsg, e);
-			return new ResponseEntity<AccountLookupResponse>(new AccountLookupResponse(safeErrorMsg),
+			return new ResponseEntity<SkillProfileServiceResponse>(new SkillProfileServiceResponse(safeErrorMsg),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+	
 	@GetMapping(path = "/byHolder/{accountHolder}")
 	public ResponseEntity<AccountLookupResponse> getAccounByHolder(
 			@PathVariable(value = "accountHolder") String accountHolder) {
